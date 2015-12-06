@@ -1,0 +1,63 @@
+/* 
+    Project	    : fonts.ket.am
+    Document	    : Webfont CSS for Arial AMU (version 4)
+    Created on	    : Feb 5, 2013, 4:39:23 PM
+    Author	    : Aleksandr Bakhshetyan
+    Font by	    : Ruben Tarumyan http://arian.tarumian.am,  Copyright (c) 1998—2011 Ruben Hakobyan (Tarumyan)
+    Unicode range   : 0021-007E,0400-04F9,0530-058F  / basic, cyrillic, armenian
+*/
+
+@charset "utf-8";
+
+@font-face {
+  font-family: 'Arian AMU';
+  font-style: normal;
+  font-weight: normal;
+  
+  src: 
+       local('Arian AMU'),
+       url(fonts/arnamu.ttf) format('truetype'),
+       url(fonts/arnamu.woff) format('woff'),
+       url(fonts/arnamu.svg) format('svg');
+}
+
+@font-face {
+  font-family: 'Arian AMU';
+  font-style: normal;
+  font-weight: bold;
+  
+  src: 
+       local('Arian AMU'),
+       url(fonts/arnamu_bold.ttf) format('truetype'),
+       url(fonts/arnamu_bold.woff) format('woff'),
+       url(fonts/arnamu_bold.svg) format('svg');
+}
+
+@font-face {
+  font-family: 'Arian AMU';
+  font-style: italic;
+  font-weight: normal;
+  
+  src: 
+       local('Arian AMU'),
+       url(fonts/arnamu_italic.ttf) format('truetype'),
+       url(fonts/arnamu_italic.woff) format('woff'),
+       url(fonts/arnamu_italic.svg) format('svg');
+}
+
+@font-face {
+  font-family: 'Arian AMU';
+  font-style: italic;
+  font-weight: bold;
+  
+  src: 
+       local('Arian AMU'),
+       url(fonts/arnamu_italic_bold.ttf) format('truetype'),
+       url(fonts/arnamu_italic_bold.woff) format('woff'),
+       url(fonts/arnamu_italic_bold.svg) format('svg');
+}
+
+*{
+font-family:Arian Amu, Arial; }
+body{
+font-family:Arian Amu, Arial; }
