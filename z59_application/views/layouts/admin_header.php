@@ -11,6 +11,7 @@
 
 	<!-- Bootstrap -->
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+	<link href="/assets/css/datatables.min.css" rel="stylesheet" />
 	<link href="/assets/css/fonts.css" rel="stylesheet" />
 	<link href="/assets/css/style.css" rel="stylesheet" />
 	<!--[if lt IE 9]>
