@@ -12,6 +12,7 @@
 	<!-- Bootstrap -->
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
 	<link href="/assets/css/datatables.min.css" rel="stylesheet" />
+	<link href="https://cdn.datatables.net/buttons/1.1.2/css/buttons.dataTables.min.css" rel="stylesheet" />
 	<link href="/assets/css/fonts.css" rel="stylesheet" />
 	<link href="/assets/css/style.css" rel="stylesheet" />
 	<!--[if lt IE 9]>

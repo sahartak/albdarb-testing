@@ -9,6 +9,9 @@
 	<script src="/assets/js/jquery.min.js"></script>
 	<script src="/assets/js/bootstrap.min.js"></script>
 	<script src="/assets/js/datatables.min.js"></script>
+	<script src="/assets/js/dataTables.buttons.min.js"></script>
+	<script src="/assets/js/buttons.print.min.js"></script>
+	<script src="/assets/js/buttons.colVis.min.js"></script>
 	<script src="/assets/js/admin_scripts.js"></script>
 </body>
 </html>
