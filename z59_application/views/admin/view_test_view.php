@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="container"><br />
-    
+
 	<div class="row"><h1 class="page_title">Թեստ N<?=$test['id']?> &laquo;<?=$test['name']?>&raquo;</h1></div>
 
 	<div class="row">
@@ -34,7 +34,7 @@
 		</form>
 	</div><br />
 		
-	<div class="row">
+	<div class="row table-responsive">
 		<table class="table-bordered table-condensed table-striped table-hover" width="100%">
 			<tr>
 				<th>ID</th>
@@ -68,43 +68,47 @@
 		</table>
 	</div>
 	<div class="row"><h2 class="page_title">Թեստի հարցերը. <a href="<?=site_url('admin/add_question/'.$test['id'])?>">Ավելացնել հարց</a></h2></div>
-	<div class="row">
-		<table class="table-bordered table-responsive table-condensed table-striped table-hover" width="100%">
-			<tr>
-                <th>Հ/հ</th>
-				<th>ID</th>
-				<th>Հարցը</th>
-				<th>Ճիշտ պատասխաններ<br />նշելու քանակը</th>
-				<th>Ստեղծման ամսաթիվ</th>
-				<th>Թեման</th>
-				<th>Բարդությունը</th>
-				<th>Ստեղծման ամսաթիվը</th>
-				<th>Պատասխաններ<br />(Կանաչ գույնով նշված է ճիշտ պատասխանը)</th>
-				<th>Գործողություններ</th>
-			</tr>
-		<?php $i=1; foreach($test['questions'] as $question):?>
-			<tr>
-                <td><?=$i++?></td>
-				<td><?=$question['id']?></td>
-				<td><?=$question['question']?></td>
-				<td><?=$question['answer_mode'] ? '1 ից ավելի պատասխաններ' : '1 պատասխան'?></td>
-				<td><?=date('d.m.Y',strtotime($question['created']))?></td>
-				<td><?=$question['category_name']?></td>
-				<td><?=$question['difficulty_name']?></td>
-				<td><?=date('d.m.Y',strtotime($question['created']))?></td>
-				<td>
-					<ul>        
-					<?php foreach($question['answers'] as $answer):?>
-						<li<?php if($answer['is_right']) echo ' class="green"';?>><?=$answer['answer']?></li>
-					<?php endforeach;?>
-					</ul>
-				</td>
-				<td class="td_options">
-					<a href="<?php echo site_url('admin/edit_question/'.$question['id']);?>" title="Խմբագրել" class="glyphicon glyphicon-edit edit_button"></a>
-					<a href="<?php echo site_url('admin/delete_question/'.$question['id']);?>" onclick="return confirm('Համոզվա՞ծ եք, որ ցանկանում եք ջնջել այս հարցը')" class="glyphicon glyphicon-trash trash_button" title="Ջնջել" ></a>
-				</td>
-			</tr>
-		<?php endforeach;?>
+	<div class="row table-responsive">
+		<table class="table-bordered  table-condensed table-striped table-hover table_datatable" width="100%">
+			<thead>
+				<tr>
+					<th>Հ/հ</th>
+					<th>ID</th>
+					<th>Հարցը</th>
+					<th>Ճիշտ պատասխաններ<br />նշելու քանակը</th>
+					<th>Ստեղծման ամսաթիվ</th>
+					<th>Թեման</th>
+					<th>Բարդությունը</th>
+					<th>Ստեղծման ամսաթիվը</th>
+					<th>Պատասխաններ<br />(Կանաչ գույնով նշված է ճիշտ պատասխանը)</th>
+					<th>Գործողություններ</th>
+				</tr>
+			</thead>
+			<tbody>
+			<?php $i=1; foreach($test['questions'] as $question):?>
+				<tr>
+					<td><?=$i++?></td>
+					<td><?=$question['id']?></td>
+					<td><?=$question['question']?></td>
+					<td><?=$question['answer_mode'] ? '1 ից ավելի պատասխաններ' : '1 պատասխան'?></td>
+					<td><?=date('d.m.Y',strtotime($question['created']))?></td>
+					<td><?=$question['category_name']?></td>
+					<td><?=$question['difficulty_name']?></td>
+					<td><?=date('d.m.Y',strtotime($question['created']))?></td>
+					<td>
+						<ul>
+							<?php foreach($question['answers'] as $answer):?>
+								<li<?php if($answer['is_right']) echo ' class="green"';?>><?=$answer['answer']?></li>
+							<?php endforeach;?>
+						</ul>
+					</td>
+					<td class="td_options">
+						<a href="<?php echo site_url('admin/edit_question/'.$question['id']);?>" title="Խմբագրել" class="glyphicon glyphicon-edit edit_button"></a>
+						<a href="<?php echo site_url('admin/delete_question/'.$question['id']);?>" onclick="return confirm('Համոզվա՞ծ եք, որ ցանկանում եք ջնջել այս հարցը')" class="glyphicon glyphicon-trash trash_button" title="Ջնջել" ></a>
+					</td>
+				</tr>
+			<?php endforeach;?>
+			</tbody>
 		</table>
 	</div>
 </div>

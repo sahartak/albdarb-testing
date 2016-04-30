@@ -15,6 +15,25 @@ $(document).ready(function() {
 
 	$('#is_public').trigger('change');
 
+    $('.table_datatable').dataTable({
+        language: {
+            "emptyTable":     "Տվյալներ Չկան",
+            "info":           "Ցույց են տրված _START_ -ից մինչև _END_ -րդ տողերը ՝ ընդհանուր _TOTAL_ տողից",
+            "infoFiltered":   "(ֆիլտրված է ընդհանուր _MAX_ տողերից)",
+            "lengthMenu":     "Ցույց տալ _MENU_ տող",
+            "loadingRecords": "Loading...",
+            "processing":     "Processing...",
+            "search":         "Որոնում:",
+            "zeroRecords":    "Արդյունքներ չկան",
+            "paginate": {
+                "first":      "Առաջին",
+                "last":       "Վերջին",
+                "next":       "Հաջորդը",
+                "previous":   "Նախորդը"
+            }
+        }
+    });
+
 	$('#qty').change(function() {
 		var answers_count = 0;
 		var html = '';
