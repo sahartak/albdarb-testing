@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'a99521.mysql.mchost.ru',
-	'username' => 'a99521_solidarm',
-	'password' => 'puFYVNiRYU0Lus59FYB5D2',
-	'database' => 'a99521_armsold',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => '',
+	'database' => 'albdarb_testing',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => 'z59_',
 	'pconnect' => FALSE,
