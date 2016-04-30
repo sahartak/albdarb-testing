@@ -2,28 +2,33 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Test_passing_model extends CI_Model {
-    
+
 	public function get_passing_rules($no_pass) {
 		$config = array(
 					array(
 						'field' => 'first_name',
 						'label' => 'Անուն',
-						'rules' => 'required|trim|strip_tags|htmlspecialchars|min_length[2]|max_length[50]'
+						'rules' => 'required|trim|strip_tags|ucfirst|htmlspecialchars|min_length[2]|max_length[50]'
 					),
 					array(
 						'field' => 'last_name',
 						'label' => 'Ազգանուն',
-						'rules' => 'required|trim|strip_tags|htmlspecialchars|min_length[2]|max_length[50]'
+						'rules' => 'required|trim|strip_tags|ucfirst|htmlspecialchars|min_length[2]|max_length[50]'
 					),
 					array(
 						'field' => 'father_name',
 						'label' => 'Հայրանուն',
-						'rules' => 'required|trim|strip_tags|htmlspecialchars|min_length[2]|max_length[50]'
+						'rules' => 'required|trim|strip_tags|ucfirst|htmlspecialchars|min_length[2]|max_length[50]'
 					),
 					array(
 						'field' => 'course',
 						'label' => 'Խումբը',
 						'rules' => 'required|trim|is_natural'
+					),
+					array(
+						'field' => 'course_name',
+						'label' => 'խմբի անվանումը',
+						'rules' => 'trim|strip_tags|htmlspecialchars|max_length[50]'
 					),
 			   );
 		if(!$no_pass) {
@@ -89,17 +94,37 @@ class Test_passing_model extends CI_Model {
 					'father_name' => $this->input->post('father_name', TRUE),
 					'group_id' => $this->input->post('course', TRUE)
 				  );
-		$this->db->insert('users', $insert);
-		return $this->db->insert_id();
+		$user = $this->db->select('id')->get_where('users', $insert)->row();
+		if(!$user) {
+			$this->db->insert('users', $insert);
+			return $this->db->insert_id();
+		} else {
+			return $user->id;
+		}
+	}
+
+	private function check_group() {
+		$group_id = $this->input->post('course', TRUE);
+		$course_name = $this->input->post('course_name', TRUE);
+		if(!$group_id && $course_name) {
+			$course = $this->db->select('id')->get_where('courses', ['name' => $course_name])->row();
+			if(!$course) {
+				$this->db->insert('courses', ['name' => $course_name]);
+				$_POST['course'] = $this->db->insert_id();
+			} else {
+				$_POST['course'] = $course->id;
+			}
+		}
 	}
 
 	public function init_get_test($test_id) {
+		$this->check_group();
 		$user_id = $this->register_new_user();
 		$insert = array(
 					'test_id' => $test_id,
 					'user_id' => $user_id,
 					'start_time' => date('Y-m-d H:i:s'),
-                    'ip' => $_SERVER["REMOTE_ADDR"]
+					'ip' => $_SERVER["REMOTE_ADDR"]
 				  );
 		$this->db->insert('get_test', $insert);
 		$insert_id = $this->db->insert_id();
@@ -202,7 +227,7 @@ class Test_passing_model extends CI_Model {
 				$end_point += $current_point;
 			}
 			$end_point = (float)$end_point;
-            $max_point = $point * count($questions);
+			$max_point = $point * count($questions);
 			$this->db->where('id', $end_test_id)->update('get_test', array('point' => $end_point, 'max_point' => $max_point));
 			$result = array('questions' => $questions, 'end_point' => $end_point, 'max_point' => $max_point);
 			return $result;
@@ -216,18 +241,18 @@ class Test_passing_model extends CI_Model {
 		session_destroy();
 	}
 
-    public function get_end_test_info($passing_id) {
-        $query = $this->db  ->select('get_test.start_time, get_test.end_time, tests.point')
+	public function get_end_test_info($passing_id) {
+		$query = $this->db  ->select('get_test.start_time, get_test.end_time, tests.point')
 							->where('get_test.id', $passing_id)
 							->join('tests','tests.id=get_test.test_id')
 							->get('get_test');
 		if($query->num_rows()) {
 			$get_test = $query->row_array();
 			$result = $this->getting_end_test_questions($passing_id, $get_test['point']);
-            $result['time'] = $this->test_model->get_times_interval($get_test['start_time'], $get_test['end_time']);
+			$result['time'] = $this->test_model->get_times_interval($get_test['start_time'], $get_test['end_time']);
 			return $result;
 		}
 		return false;
-    }
-    
+	}
+
 }

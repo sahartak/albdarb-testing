@@ -36,7 +36,6 @@ $(document).ready(function() {
 	});
 
 
-
 	var test_time  = parseInt($('#test_time').val());
 	if(test_time > 0) {
 		
@@ -55,37 +54,45 @@ $(document).ready(function() {
 			text = escapeHtml(text);
 			$(this).html(text);
 		});
-                
+
 	}
-    
+
+	$('#course').change(function() {
+		if($(this).val() === '0') {
+			$('#course_name_block').removeClass('hidden').find('#course_name').prop('required', true);
+		} else {
+			$('#course_name_block').addClass('hidden').find('#course_name').prop('required', false);
+		}
+	});
+
 });
 
 function noselect() {return false;}
-    document.ondragstart = noselect;
+	document.ondragstart = noselect;
     document.onselectstart = noselect;
     document.oncontextmenu = noselect;
 
 document.onkeypress = function (event) {
-    event = (event || window.event);
-    if (event.keyCode == 123) {
-        return false;
-    }
+	event = (event || window.event);
+	if (event.keyCode == 123) {
+		return false;
+	}
 }
 document.onmousedown = function (event) {
-    event = (event || window.event);
-    if (event.keyCode == 123) {
-        return false;
-    }
+	event = (event || window.event);
+	if (event.keyCode == 123) {
+		return false;
+	}
 }
 document.onkeydown = function (event) {
-        event = (event || window.event);
-        if (event.keyCode == 123 || 
-        (event.ctrlKey && 
-            (event.keyCode === 67 || 
-             event.keyCode === 86 || 
-             event.keyCode === 85 || 
-             event.keyCode === 117))
-        ) {
-            return false;
-        }
+		event = (event || window.event);
+		if (event.keyCode == 123 ||
+		(event.ctrlKey &&
+			(event.keyCode === 67 ||
+			 event.keyCode === 86 ||
+			 event.keyCode === 85 ||
+			 event.keyCode === 117))
+		) {
+			return false;
+		}
 }

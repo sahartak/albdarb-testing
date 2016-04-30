@@ -28,12 +28,17 @@
 		<?php endif;?>
 			<div class="row">
 				<label for="course">Խումբը</label>
-				<select name="course" id="course" class="form-control">
+				<select name="course" id="course" class="form-control" required="required">
+					<option value="" selected>Նշեք Խումբը</option>
 					<option value="0">Այլ</option>
 				<?php foreach($courses as $course):?>
 					<option value="<?=$course['id']?>"><?=$course['name']?></option>
 				<?php endforeach;?>
 				</select>
+			</div>
+			<div class="row hidden" id="course_name_block">
+				<label for="course_name">Ներմուծեք խմբի անվանումը</label>
+				<input type="text" class="form-control" name="course_name" id="course_name" value="<?=set_value('course_name')?>" required="true" maxlength="100"/>
 			</div>
 			<div class="row align_center">
 				<input type="submit" class="btn btn-primary" name="getting_test" value="հաստատել" />

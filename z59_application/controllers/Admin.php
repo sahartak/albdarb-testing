@@ -2,11 +2,11 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Admin extends CI_Controller {
-    
+
 	public function __construct(){
 		parent::__construct();
 		if($this->session->userdata('z59_admin_logged') !== 'albdarb-testing-admin') {
-			show_404();
+			redirect(site_url('admin_login'));
 		}
 		$this->load->model('admin_model');
 	}
@@ -124,24 +124,24 @@ class Admin extends CI_Controller {
 		$data['statistics'] = $this->test_model->get_statistics($test_id);
 		$this->view_load->load('view_test', $data);
 	}
-    
-    public function test_results($test_id = 0) {
-        $test_id = abs((int)$test_id);
-        if(!($data['test_info'] = $this->test_model->check_test_exist($test_id)))
-    		show_404();
-        $data['test_results'] = $this->test_model->get_test_results($test_id);
-        $this->view_load->load('test_results', $data);
-    }
-    
-    public function test_result($id = 0) {
-        $this->load->model('test_passing_model');
-        $data['test_end_info'] = $this->test_passing_model->get_end_test_info($id);
-        $this->view_load->view('end_test', $data);
-    }
-    
-    public function delete_test_result($id = 0) {
-        $this->admin_model->delete_result($id);
-        redirect($_SERVER['HTTP_REFERER']);
-    } 
-    
+
+	public function test_results($test_id = 0) {
+		$test_id = abs((int)$test_id);
+		if(!($data['test_info'] = $this->test_model->check_test_exist($test_id)))
+			show_404();
+		$data['test_results'] = $this->test_model->get_test_results($test_id);
+		$this->view_load->load('test_results', $data);
+	}
+
+	public function test_result($id = 0) {
+		$this->load->model('test_passing_model');
+		$data['test_end_info'] = $this->test_passing_model->get_end_test_info($id);
+		$this->view_load->view('end_test', $data);
+	}
+
+	public function delete_test_result($id = 0) {
+		$this->admin_model->delete_result($id);
+		redirect($_SERVER['HTTP_REFERER']);
+	}
+
 }
