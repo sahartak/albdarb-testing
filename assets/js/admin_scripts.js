@@ -41,11 +41,11 @@ $(document).ready(function() {
 				}
 			},
 			'colvis',
-		],
-		columnDefs: [ {
+		]
+		/*columnDefs: [ {
 			targets: -1,
 			visible: false
-		} ]
+		} ]*/
 	});
 
 	$('#qty').change(function() {
