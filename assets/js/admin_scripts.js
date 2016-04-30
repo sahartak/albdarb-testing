@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
 	$('#is_public').change(function() {
 		var test_pass = $('#test_pass');
 		var password = $('#password');
@@ -15,24 +15,38 @@ $(document).ready(function() {
 
 	$('#is_public').trigger('change');
 
-    $('.table_datatable').dataTable({
-        language: {
-            "emptyTable":     "Տվյալներ Չկան",
-            "info":           "Ցույց են տրված _START_ -ից մինչև _END_ -րդ տողերը ՝ ընդհանուր _TOTAL_ տողից",
-            "infoFiltered":   "(ֆիլտրված է ընդհանուր _MAX_ տողերից)",
-            "lengthMenu":     "Ցույց տալ _MENU_ տող",
-            "loadingRecords": "Loading...",
-            "processing":     "Processing...",
-            "search":         "Որոնում:",
-            "zeroRecords":    "Արդյունքներ չկան",
-            "paginate": {
-                "first":      "Առաջին",
-                "last":       "Վերջին",
-                "next":       "Հաջորդը",
-                "previous":   "Նախորդը"
-            }
-        }
-    });
+	$('.table_datatable').dataTable({
+		language: {
+			"emptyTable":     "Տվյալներ Չկան",
+			"info":           "Ցույց են տրված _START_ -ից մինչև _END_ -րդ տողերը ՝ ընդհանուր _TOTAL_ տողից",
+			"infoFiltered":   "(ֆիլտրված է ընդհանուր _MAX_ տողերից)",
+			"lengthMenu":     "Ցույց տալ _MENU_ տող",
+			"loadingRecords": "Loading...",
+			"processing":     "Processing...",
+			"search":         "Որոնում:",
+			"zeroRecords":    "Արդյունքներ չկան",
+			"paginate": {
+				"first":      "Առաջին",
+				"last":       "Վերջին",
+				"next":       "Հաջորդը",
+				"previous":   "Նախորդը"
+			}
+		},
+		dom: 'Bfrtip',
+		buttons: [
+			{
+				extend: 'print',
+				exportOptions: {
+					columns: ':visible'
+				}
+			},
+			'colvis'
+		],
+		columnDefs: [ {
+			targets: -1,
+			visible: false
+		} ]
+	});
 
 	$('#qty').change(function() {
 		var answers_count = 0;
@@ -211,6 +225,6 @@ $(document).ready(function() {
 		var max_point = parseFloat($('#test_point').val()) * parseInt($('#questions_count').text());
 		$('#test_max_point').text(max_point);
 	}
-    
-    
+
+
 });
