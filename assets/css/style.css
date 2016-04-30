@@ -104,7 +104,7 @@ table.table-bordered th, table.table-bordered td{
 
 .trash_button {
 	color: #CE0000;
-    
+
 }
 .trash_button:hover {
 	color: #FF1717;
@@ -186,9 +186,13 @@ pre{
 }
 
 .noselect {
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.dt-buttons {
+	margin-left: 20px;
 }

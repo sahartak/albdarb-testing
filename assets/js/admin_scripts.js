@@ -32,7 +32,7 @@ $(document).ready(function() {
 				"previous":   "Նախորդը"
 			}
 		},
-		dom: 'Bfrtip',
+		dom: 'lBfrtip',
 		buttons: [
 			{
 				extend: 'print',
@@ -40,7 +40,7 @@ $(document).ready(function() {
 					columns: ':visible'
 				}
 			},
-			'colvis'
+			'colvis',
 		],
 		columnDefs: [ {
 			targets: -1,
