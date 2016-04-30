@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin_model extends CI_Model {
-    
+
 	private function get_secure_pass($password) {
 		$salt = 'z59_salt';
 		$salt = md5($salt.$password).sha1($salt.$password);
@@ -60,6 +60,19 @@ class Admin_model extends CI_Model {
 		);
 		return $config;
 	}
+
+	public function get_import_tests_rules() {
+		$config = array(
+			array(
+					'field' => 'tests[]',
+					'label' => 'Թեստեր',
+					'rules' => 'required|trim|numeric'
+			),
+		);
+		return $config;
+	}
+
+
 
 
 	public function create_category($test_id, $count) {
@@ -174,10 +187,34 @@ class Admin_model extends CI_Model {
 		$this->db->update('tests', $_POST, array('id'=>$test_id)); 
 		return true;
 	}
-    
-    public function delete_result($id) {
-        $id = abs((int)$id);
-        $this->db->delete('get_test', array('id' => $id));
-        $this->db->delete('gotten_test_answers', array('get_test_id' => $id));
-    }
+
+	public function delete_result($id) {
+		$id = abs((int)$id);
+		$this->db->delete('get_test', array('id' => $id));
+		$this->db->delete('gotten_test_answers', array('get_test_id' => $id));
+	}
+
+	public function import_test_questions($test_id, $questions) {
+		foreach($questions as $question) {
+			$insert_question = [
+				'test_id' => $test_id,
+				'question' => $question['question'],
+				'answer_mode' => $question['answer_mode'],
+				'category' => $question['category'],
+				'difficulty' => $question['difficulty']
+			];
+			$this->db->insert('questions', $insert_question);
+			$question_id = $this->db->insert_id();
+			foreach($question['answers'] as $answer) {
+				$insert_answer = [
+					'question_id' => $question_id,
+					'answer' => $answer['answer'],
+					'point' => $answer['point'],
+					'is_right' => $answer['is_right']
+				];
+				$this->db->insert('answers', $insert_answer);
+			}
+		}
+	}
+
 }

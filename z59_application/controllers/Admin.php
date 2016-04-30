@@ -144,4 +144,21 @@ class Admin extends CI_Controller {
 		redirect($_SERVER['HTTP_REFERER']);
 	}
 
+	public function import_tests($test_id = 0) {
+		if(!$test_id || !($current_test = $this->test_model->check_test_exist($test_id))) {
+			show_404();
+		}
+		$this->form_validation->set_rules($this->admin_model->get_import_tests_rules());
+		if ($this->form_validation->run()) {
+			$test_ides = $this->input->post('tests');
+			foreach($test_ides as $id) {
+				$questions = $this->test_model->get_test_questions($id);
+				$this->admin_model->import_test_questions($test_id, $questions);
+			}
+			redirect(site_url('admin/view_test/'.$test_id));
+		}
+		$tests = $this->test_model->get_tests(['id <>' => $test_id]);
+		$this->view_load->load('import_tests', compact('current_test', 'tests'));
+	}
+
 }

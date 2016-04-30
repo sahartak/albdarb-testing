@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 class Test_model extends CI_Model {
-        
+
 	public function get_secure_pass($password) {
 		$salt = 'z59_salt';
 		$salt = md5($salt.$password).sha1($salt.$password);
@@ -16,7 +16,7 @@ class Test_model extends CI_Model {
 		return array();
 	}
 
-	private function get_test_questions($test_id, $where = null) {
+	public function get_test_questions($test_id, $where = null) {
 		$questions = array();
 		$this->db->select('questions.*, categories.name as category_name, difficulty.difficulty_name');
 		$this->db->join('categories','categories.id=questions.category','left');
@@ -123,26 +123,26 @@ class Test_model extends CI_Model {
 			return $query->row_array();
 		return false;
 	}
-    
-    public function get_times_interval($start, $end) {
-        $start = new DateTime($start);
+
+	public function get_times_interval($start, $end) {
+		$start = new DateTime($start);
 		$end = new DateTime($end);
 		$interval = $end->diff($start);
 		return $interval->format('%H:%I:%S');
-    }
-    
-    public function get_test_results($test_id) {
-        $query = $this->db  ->select('get_test.*, 
-                                    users.first_name, users.last_name, users.father_name, courses.name as group')
-                            ->join('users', 'users.id=get_test.user_id')
-                            ->join('courses', 'courses.id=users.group_id', 'LEFT')
-                            ->where(array('test_id' => $test_id, 'end_time >' => '0000-00-00 00:00:00'))
-                            ->order_by('get_test.point', 'DESC')
-                            ->get('get_test');
-        if($query->num_rows()) {
-            return $query->result_array();
-        }
-        return array();
-    }
-    
+	}
+
+	public function get_test_results($test_id) {
+		$query = $this->db  ->select('get_test.*,
+									users.first_name, users.last_name, users.father_name, courses.name as group')
+							->join('users', 'users.id=get_test.user_id')
+							->join('courses', 'courses.id=users.group_id', 'LEFT')
+							->where(array('test_id' => $test_id, 'end_time >' => '0000-00-00 00:00:00'))
+							->order_by('get_test.point', 'DESC')
+							->get('get_test');
+		if($query->num_rows()) {
+			return $query->result_array();
+		}
+		return array();
+	}
+
 }

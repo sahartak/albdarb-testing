@@ -2,6 +2,9 @@
 
 <div class="container">
 	<div class="row"><h1 class="page_title">Ավելացնել Հարց</h1><br /></div>
+    <div class="row">
+        <a href="<?=site_url('admin/import_tests/'.$test['id'])?>"><h3>Ներմուծել հարցերը այլ թեստերից</h3></a>
+    </div>
 <?php 
 	echo validation_errors();
 	echo form_open('',array('id' => 'question_form'));
