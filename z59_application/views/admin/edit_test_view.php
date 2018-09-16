@@ -11,6 +11,13 @@
 				<input type="text" name="name" class="form-control" value="<?php echo set_value('name', $test['name'])?>" placeholder="Թեստի անվանումը" maxlength="255" required="true" />
 			</div>
 		</div>
+
+		<div class="row">
+			<div class="col-md-12"><label for="description">Թեստի կարճ նկարագրությունը</label></div>
+			<div class="col-sm-6">
+				<textarea id="description" rows="5" name="description" class="form-control" maxlength="255"><?php echo set_value('name', $test['description']);?></textarea>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col-md-12"><label for="is_public">Թեստը հասանելի՞ է բոլորին</label></div>
 			<div class="col-sm-2">

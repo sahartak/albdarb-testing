@@ -3,10 +3,10 @@
 <div class="container">
 	<div class="row">
 		<div class="col-sm-12">
-		<h3>Թեստի արդյունքը՝ <?=$test_end_info['end_point']?> միավոր <?=$test_end_info['max_point']?> հնարավորից, Տևողությունը՝ <?=$test_end_info['time']?></h3>
+		<h3>Թեստի արդյունքը՝ <?=round($test_end_info['end_point'] / $test_end_info['max_point'] * 100)?>%  <?=$test_end_info['end_point']?> միավոր  <?=$test_end_info['max_point']?> հնարավորից, Տևողությունը՝ <?=$test_end_info['time']?></h3>
 		</div>
 	</div>
-<?php foreach($test_end_info['questions'] as $question): 
+<?php if(false) foreach($test_end_info['questions'] as $question): 
 	if($question['answer_mode']) {
 		$type = 'checkbox';
 	} else {

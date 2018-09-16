@@ -10,10 +10,9 @@ class Test_model extends CI_Model {
 	}    
 
 	public function get_question_answers($question_id) {
-		$query = $this->db->get_where('answers', array('question_id' => $question_id));
-		if($query->num_rows())
-			return $query->result_array();
-		return array();
+		$this->db->order_by('id', 'RANDOM');
+		$query = $this->db->where(array('question_id' => $question_id))->get('answers');
+		return $query->result_array();
 	}
 
 	public function get_test_questions($test_id, $where = null) {
@@ -37,7 +36,7 @@ class Test_model extends CI_Model {
 	public function get_test_details($id, $where = null) {
 		$id = abs((int)$id);
 		$test = array();
-		$this->db->select('id, name, created, is_public, point, is_open, diff_1_total, diff_2_total, diff_3_total, diff_4_total, diff_5_total,
+		$this->db->select('id, name, created, description, is_public, point, is_open, diff_1_total, diff_2_total, diff_3_total, diff_4_total, diff_5_total,
 						 (diff_1_total + diff_2_total + diff_3_total + diff_4_total + diff_5_total) as total_sum ');
 		$where['id'] = $id;
 		$query = $this->db->get_where('tests', $where);
