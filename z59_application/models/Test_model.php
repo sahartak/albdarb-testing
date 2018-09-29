@@ -7,7 +7,7 @@ class Test_model extends CI_Model {
 		$salt = md5($salt.$password).sha1($salt.$password);
 		$password = password_hash($password, PASSWORD_BCRYPT, array('salt' => $salt));
 		return $password;
-	}    
+	}
 
 	public function get_question_answers($question_id) {
 		$this->db->order_by('id', 'RANDOM');
@@ -36,7 +36,7 @@ class Test_model extends CI_Model {
 	public function get_test_details($id, $where = null) {
 		$id = abs((int)$id);
 		$test = array();
-		$this->db->select('id, name, created, description, is_public, point, is_open, diff_1_total, diff_2_total, diff_3_total, diff_4_total, diff_5_total,
+		$this->db->select('id, name, time, display_mode, created, description, is_public, point, is_open, diff_1_total, diff_2_total, diff_3_total, diff_4_total, diff_5_total,
 						 (diff_1_total + diff_2_total + diff_3_total + diff_4_total + diff_5_total) as total_sum ');
 		$where['id'] = $id;
 		$query = $this->db->get_where('tests', $where);

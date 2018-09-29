@@ -16,7 +16,7 @@
 			</div>
 			<div class="row">
 				<label for="father_name">Հայրանուն</label>
-				<input type="text" class="form-control" name="father_name" id="father_name" value="<?=set_value('father_name')?>" required="true" maxlength="50"/>
+				<input type="text" class="form-control" name="father_name" id="father_name" value="<?=set_value('father_name')?>" maxlength="50"/>
 			</div>
 		<?php if(!$is_public):?>
 			<div class="row">

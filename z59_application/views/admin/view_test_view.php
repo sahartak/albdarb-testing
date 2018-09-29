@@ -72,14 +72,13 @@
 		<table class="table-bordered  table-condensed table-striped table-hover table_datatable" width="100%">
 			<thead>
 				<tr>
-					<th>Հ/հ</th>
+					<!--<th>Հ/հ</th>-->
 					<th>ID</th>
 					<th>Հարցը</th>
 					<th>Ճիշտ պատասխաններ<br />նշելու քանակը</th>
-					<th>Ստեղծման ամսաթիվ</th>
-					<th>Թեման</th>
+					<!--<th>Ստեղծման ամսաթիվ</th>-->
+					<!--<th>Թեման</th>-->
 					<th>Բարդությունը</th>
-					<th>Ստեղծման ամսաթիվը</th>
 					<th>Պատասխաններ<br />(Կանաչ գույնով նշված է ճիշտ պատասխանը)</th>
 					<th>Գործողություններ</th>
 				</tr>
@@ -87,14 +86,13 @@
 			<tbody>
 			<?php $i=1; foreach($test['questions'] as $question):?>
 				<tr>
-					<td><?=$i++?></td>
+					<!--<td><?/*=$i++*/?></td>-->
 					<td><?=$question['id']?></td>
 					<td><?=$question['question']?></td>
 					<td><?=$question['answer_mode'] ? '1 ից ավելի պատասխաններ' : '1 պատասխան'?></td>
-					<td><?=date('d.m.Y',strtotime($question['created']))?></td>
-					<td><?=$question['category_name']?></td>
+					<!--<td><?/*=date('d.m.Y',strtotime($question['created']))*/?></td>-->
+					<!--<td><?/*=$question['category_name']*/?></td>-->
 					<td><?=$question['difficulty_name']?></td>
-					<td><?=date('d.m.Y',strtotime($question['created']))?></td>
 					<td>
 						<ul>
 							<?php foreach($question['answers'] as $answer):?>

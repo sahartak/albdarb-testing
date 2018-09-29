@@ -63,22 +63,41 @@
 			</div>
 		</div>
 		<div class="col-sm-12" id="answers_block">
-		<?php
-			if(!empty($question['answers'])):
-				$answer_mode = $question['answer_mode'] ? 'checkbox' : 'radio';
-				$answ_name = $question['answer_mode'] ? '[]' : '';
-				$i=1;
-				foreach($question['answers'] as $answer):
-		?>
-			<div class="row">
-				<div class="col-sm-11">
-					<textarea class="form-control" name="answer_<?=$i?>" required="true"><?=$answer['answer']?></textarea>
-				</div>
-				<div class="col-sm-1">
-					<input type="<?=$answer_mode?>" value="<?=$i?>" class="is_right" name="is_right<?=$answ_name?>" required="true" <?php if($answer['is_right']) echo 'checked';?> />
-				</div>
-			</div>
-			<?php $i++; endforeach; endif;?>
+    <?php
+        if(!empty($question['answers'])):
+            $answer_mode = $question['answer_mode'] ? 'checkbox' : 'radio';
+            $answ_name = $question['answer_mode'] ? '[]' : '';
+            $i=1;
+
+    ?>
+        <?php if($question['answer_mode']):?>
+            <?php foreach($question['answers'] as $answer):?>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <textarea class="form-control" required="true" name="answer_<?=$i?>"><?=$answer['answer']?></textarea>
+                    </div>
+                    <div class="col-xs-1">
+                        <input type="checkbox" class="is_right" name="is_right[]" value="<?=$i?>" required="true" <?php if($answer['is_right']) echo 'checked';?> />
+                    </div>
+                    <div class="col-xs-3 "><input type="number" name="point_<?=$i?>" class="form-control answer_point" step="0.1" value="<?=$answer['point']?>" /></div>
+                </div>
+            <?php $i++; endforeach;?>
+        <?php else :?>
+
+            <?php foreach($question['answers'] as $answer):?>
+                <div class="row">
+                    <div class="col-xs-8">
+                        <textarea class="form-control" required="true" name="answer_<?=$i?>"><?=$answer['answer']?></textarea>
+                    </div>
+                    <div class="col-xs-1">
+                        <input type="<?=$answer_mode?>" value="<?=$i?>" class="is_right" name="is_right<?=$answ_name?>" required="true" <?php if($answer['is_right']) echo 'checked';?> />
+                    </div>
+                    <div class="col-xs-3 "><input type="number" name="point_<?=$i?>" class="form-control answer_point" step="0.1" value="<?=$answer['point']?>" /></div>
+                </div>
+            <?php $i++; endforeach;?>
+        <?php endif;?>
+
+    <?php endif?>
 		</div>
 	</div>
 </div> 

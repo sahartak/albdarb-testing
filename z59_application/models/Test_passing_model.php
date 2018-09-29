@@ -18,7 +18,7 @@ class Test_passing_model extends CI_Model {
 					array(
 						'field' => 'father_name',
 						'label' => 'Հայրանուն',
-						'rules' => 'required|trim|strip_tags|ucfirst|htmlspecialchars|min_length[2]|max_length[50]'
+						'rules' => 'trim|strip_tags|ucfirst|htmlspecialchars|min_length[2]|max_length[50]'
 					),
 					array(
 						'field' => 'course',
@@ -189,14 +189,16 @@ class Test_passing_model extends CI_Model {
 					$answer_ids = explode(',', $question['answer_ids']);
 					$right_answers = array();
 					foreach($questions[$key]['answers'] as $answer_key => $answer) {
-						if(in_array($answer['id'], $answer_ids)) {
-							$questions[$key]['answers'][$answer_key]['checked'] = true;
-						}
-						if($answer['is_right']) {
-							$right_answers[$answer['id']] = (float) $answer['point'];
-							$question_right++;
-						}
-					}                    
+                        if (in_array($answer['id'], $answer_ids)) {
+                            $questions[$key]['answers'][$answer_key]['checked'] = true;
+                        }
+                        if ($answer['is_right']) {
+                            $right_answers[$answer['id']] = (float)$answer['point'];
+                            $question_right++;
+                        } elseif($answer['point']) {
+                            $current_point += (float)$answer['point'];
+                        }
+                    }
 					foreach($answer_ids as $id) {
 						if(array_key_exists($id, $right_answers)) {
 							$user_right++;
@@ -210,9 +212,14 @@ class Test_passing_model extends CI_Model {
 						if($answer['id'] == $question['answer_ids']) {
 							$questions[$key]['answers'][$answer_key]['checked'] = true;
 						}
-						if($answer['is_right'] && $answer['id'] == $question['answer_ids']) {
-							$user_right = $question_right = 1;
-							$current_point = $point;
+						if($answer['id'] == $question['answer_ids']) {
+						    if($answer['is_right']) {
+                                $user_right = $question_right = 1;
+                                $current_point = $point;
+                            } elseif ($answer['point']) {
+                                $current_point = floatval($answer['point']);
+                            }
+
 						}
 					}
 				}
@@ -242,13 +249,14 @@ class Test_passing_model extends CI_Model {
 	}
 
 	public function get_end_test_info($passing_id) {
-		$query = $this->db  ->select('get_test.start_time, get_test.end_time, tests.point')
+		$query = $this->db  ->select('get_test.start_time, get_test.end_time, tests.point, tests.display_mode')
 							->where('get_test.id', $passing_id)
 							->join('tests','tests.id=get_test.test_id')
 							->get('get_test');
 		if($query->num_rows()) {
 			$get_test = $query->row_array();
 			$result = $this->getting_end_test_questions($passing_id, $get_test['point']);
+			$result['display_mode'] = $get_test['display_mode'];
 			$result['time'] = $this->test_model->get_times_interval($get_test['start_time'], $get_test['end_time']);
 			return $result;
 		}

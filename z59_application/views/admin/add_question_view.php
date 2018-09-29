@@ -91,6 +91,6 @@
 		<div class="col-xs-1">
 			<input type="radio" class="is_right" name="is_right" required="true" />
 		</div>
-		<div class="col-xs-3 hidden"><input type="number" class="form-control answer_point" min="0" step="0.5" value="0" max="<?=$test['point']?>" /></div>
+		<div class="col-xs-3"><input type="number" class="form-control answer_point"  step="0.1" value="0" max="<?=$test['point']?>" /></div>
 	</div>
 </div>

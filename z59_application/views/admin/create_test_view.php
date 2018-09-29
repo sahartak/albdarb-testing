@@ -49,6 +49,19 @@
 				<input type="password" name="password" value="<?php echo set_value('password')?>" id="password" class="form-control" maxlength="255" />
 			</div>
 		</div>
+
+        <div class="row">
+            <div class="col-md-12"><label for="is_public">Թեստի ավարտից հետո հարցերի ցուցադրում</label></div>
+            <div class="col-sm-2">
+                <select class="form-control" name="display_mode" id="display_mode">
+                    <option value="0">Ցույց չտալ</option>
+                    <option value="1" <?php if(set_value('display_mode') == '1') echo 'selected'?>>Ցույց տալ սխալ պատասխանած հարցեր և այլն</option>
+                    <option value="2" <?php if(set_value('display_mode') == '2') echo 'selected'?>>Ցույց տալ սխալ պատասխանած հարցերը և հարցի բոլոր պատասխանները</option>
+                    <option value="3" <?php if(set_value('display_mode') == '3') echo 'selected'?>>Ցույց տալ բոլոր հարցերը և բոլոր պատասխանները</option>
+                </select>
+            </div>
+        </div>
+
 		<div class="row">
 			<div class="col-sm-12"><input type="submit" class="btn btn-success" value="հաստատել և անցնել առաջ" /></div>
 		</div>

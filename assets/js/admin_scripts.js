@@ -156,7 +156,7 @@ $(document).ready(function() {
 	});
 
 	$('#answers_block').on('change', ':checkbox.is_right', function() {
-		
+		console.log('change');
 	   if(this.checked) { 
 		   $(this).parent().parent().find('.hidden').removeClass('hidden');
 	   } else {
