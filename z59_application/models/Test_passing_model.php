@@ -42,6 +42,10 @@ class Test_passing_model extends CI_Model {
 	}
 
 	public function check_test_password($test_id, $pass) {
+	    /*if($_SERVER['REMOTE_ADDR'] == '37.252.83.218') {
+            $this->session->set_flashdata('test_'.$test_id.'_allowed', TRUE);
+	        return true;
+        }*/
 		$this->db->select('id');
 		$this->db->limit(1);
 		$query = $this->db->get_where('tests', array('id' => $test_id, 'password' => $pass));
@@ -142,7 +146,7 @@ class Test_passing_model extends CI_Model {
 					array(
 						'field' => 'answer[]',
 						'label' => 'answer',
-						'rules' => 'required|trim|is_natural'
+						'rules' => 'trim|is_natural'
 					),
 			   );
 		return $config;
@@ -158,9 +162,9 @@ class Test_passing_model extends CI_Model {
 						   ->where(array('get_test.id' => $test_info['passing_id'], 'questions.id' => $question_id))
 						   ->get('get_test');
 		if($query->num_rows()) {
-			$question = $query->row_array();
 			$answer = $this->input->post('answer', TRUE);
-			$answer_str = implode(',', $answer);
+            $answer_str = $answer ? implode(',', $answer) : '';
+
 			
 			$this->db   ->where(array('get_test_id' => $test_info['passing_id'], 'question_id' => $question_id))
 						->update('gotten_test_answers', array('answer_ids' => $answer_str));
@@ -189,13 +193,15 @@ class Test_passing_model extends CI_Model {
 					$answer_ids = explode(',', $question['answer_ids']);
 					$right_answers = array();
 					foreach($questions[$key]['answers'] as $answer_key => $answer) {
+						$checked = false;
                         if (in_array($answer['id'], $answer_ids)) {
+							$checked = true;
                             $questions[$key]['answers'][$answer_key]['checked'] = true;
                         }
                         if ($answer['is_right']) {
                             $right_answers[$answer['id']] = (float)$answer['point'];
                             $question_right++;
-                        } elseif($answer['point']) {
+                        } elseif($answer['point'] && $checked) {
                             $current_point += (float)$answer['point'];
                         }
                     }
@@ -209,14 +215,16 @@ class Test_passing_model extends CI_Model {
 					}
 				} else {
 					foreach($questions[$key]['answers'] as $answer_key => $answer) {
+						$checked = false;
 						if($answer['id'] == $question['answer_ids']) {
+							$checked = true;
 							$questions[$key]['answers'][$answer_key]['checked'] = true;
 						}
 						if($answer['id'] == $question['answer_ids']) {
 						    if($answer['is_right']) {
                                 $user_right = $question_right = 1;
                                 $current_point = $point;
-                            } elseif ($answer['point']) {
+                            } elseif ($answer['point'] && $checked) {
                                 $current_point = floatval($answer['point']);
                             }
 
