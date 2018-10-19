@@ -14,7 +14,8 @@ if($is_admin) {
 		<h3>Թեստի արդյունքը՝ <?=round($test_end_info['end_point'] / $test_end_info['max_point'] * 100)?>%,   Միավոր` <?=$test_end_info['end_point']?> / <?=$test_end_info['max_point']?>, Տևողությունը՝ <?=$test_end_info['time']?></h3>
 		</div>
 	</div>
-<?php if($display_mode > 0) foreach($test_end_info['questions'] as $question):
+<?php $i=0; if($display_mode > 0) foreach($test_end_info['questions'] as $question):
+    $i++;
 	if($question['answer_mode']) {
 		$type = 'checkbox';
 	} else {
@@ -26,6 +27,7 @@ if($is_admin) {
 ?>  <br />
 	<div class="row test_blok_inner">
 		<h4 class="test_header <?php echo $question['is_right']? 'right_answer' : 'wrong_answer'?>">
+            <?=$i,'. ';?>
 			<?=$is_admin ? "(ID {$question['question_id']})" : ''?>
 			<?=$question['question']?>
 		</h4>
