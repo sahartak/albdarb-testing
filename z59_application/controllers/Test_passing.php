@@ -47,8 +47,17 @@ class Test_passing extends CI_Controller {
 
 	public function send_answer() {
 		$this->form_validation->set_rules($this->test_passing_model->get_answer_rules());
-		if(!$this->input->is_ajax_request() || !$this->session->userdata('getting_test') || !$this->form_validation->run())
-			show_404();
+		$is_ajax = $this->input->is_ajax_request();
+		$getting_test = $this->session->userdata('getting_test');
+		$validation = $this->form_validation->run();
+		if(!$is_ajax || !$getting_test || !$validation) {
+		    var_dump($is_ajax);
+		    var_dump($getting_test);
+		    var_dump($validation);
+		    die;
+            show_404();
+        }
+
 		$this->test_passing_model->sending_answer();
 		echo $this->security->get_csrf_hash();
 	}

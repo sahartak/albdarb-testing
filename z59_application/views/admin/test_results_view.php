@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
-<div class="container"><br />
+<div class="container-fluid"><br />
 
 	<div class="row"><h1 class="page_title">Թեստ N<?=$test_info['id']?> &laquo;<?=$test_info['name']?>&raquo;</h1></div>
 
@@ -35,8 +35,8 @@
 					<td><?=$result['point']?></td>
 					<td><?=round($result['point']*100/$result['max_point'])?></td>
 					<td><?=$result['max_point']?></td>
-					<td><?=date('d.m.Y H:i:s', strtotime($result['start_time']))?></td>
-					<td><?=date('d.m.Y H:i:s', strtotime($result['end_time']))?></td>
+					<td><?=date('Y-m-d H:i:s', strtotime($result['start_time']))?></td>
+					<td><?=date('Y-m-d H:i:s', strtotime($result['end_time']))?></td>
 					<td><?=$this->test_model->get_times_interval($result['start_time'], $result['end_time'])?></td>
 					<td><?=$result['ip']?></td>
 					<td class="td_options">

@@ -20,6 +20,7 @@ $(document).ready(function() {
 	});
 
 	$('.answers_bloks .passing_input').change(function() {
+		console.log('changed');
 	   var question_id = parseInt($(this).attr('data-question'));
 	   var answer = [];
 	   $('.question_'+question_id+':checked').each(function(){
@@ -34,6 +35,28 @@ $(document).ready(function() {
 		   }
 	   });
 	});
+
+	$('input[type="radio"].passing_input').mousedown(function(e){
+        var $self = $(this);
+        if( $self.is(':checked') ){
+            var uncheck = function(){
+                setTimeout(function(){
+                	$self.removeAttr('checked');
+                	console.log('trigger');
+                    $self.trigger('change');
+				},0);
+            };
+            var unbind = function(){
+                $self.unbind('mouseup',up);
+            };
+            var up = function(){
+                uncheck();
+                unbind();
+            };
+            $self.bind('mouseup',up);
+            $self.one('mouseout', unbind);
+        }
+    });
 
 
 	var test_time  = parseInt($('#test_time').val());
