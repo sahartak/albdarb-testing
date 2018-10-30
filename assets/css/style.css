@@ -7,8 +7,9 @@ body {
 
 header {
 	background-color: #E7EBFF;
-	min-height: 200px;
+	min-height: 150px;
 }
+
 
 header.header {
 	padding-left: 0;

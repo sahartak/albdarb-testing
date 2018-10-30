@@ -87,6 +87,10 @@ $(document).ready(function() {
 			$('#course_name_block').addClass('hidden').find('#course_name').prop('required', false);
 		}
 	});
+	
+	$('#sign_form').click(function () {
+		$('#test_sign_form').hide();
+	});
 
 });
 
