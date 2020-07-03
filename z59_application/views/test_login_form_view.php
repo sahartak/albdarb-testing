@@ -41,7 +41,7 @@
 				<input type="text" class="form-control" name="course_name" id="course_name" value="<?=set_value('course_name')?>" required="true" maxlength="100"/>
 			</div>
 			<div class="row align_center">
-				<input type="submit" class="btn btn-primary" name="getting_test" value="հաստատել" />
+				<input type="submit" class="btn btn-primary" name="getting_test" value="Սկսել Թեստը" />
 			</div>
 		</form>
 	</div>
