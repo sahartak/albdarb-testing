@@ -1,5 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+/**
+ * Class Admin_login
+ * @property CI_Session $session
+ */
 class Admin_login_model extends CI_Model {
     
 	private function get_secure_pass($password) {

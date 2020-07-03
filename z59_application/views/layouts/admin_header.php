@@ -28,7 +28,4 @@
 				<?php $this->load->view('layouts/admin_nav')?>
 			</div>
 		</div>
-		<div class="container"><br />
-			<a href="<?=base_url()?>"><img src="/assets/img/logo.png" /></a>
-		</div>
 	</header>     

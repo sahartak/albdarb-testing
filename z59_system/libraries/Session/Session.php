@@ -100,7 +100,7 @@ class CI_Session {
 		$this->_configure($params);
 
 		$class = new $class($this->_config);
-		if ($class instanceof SessionHandlerInterface)
+		/*if ($class instanceof SessionHandlerInterface)
 		{
 			if (is_php('5.4'))
 			{
@@ -124,7 +124,7 @@ class CI_Session {
 		{
 			log_message('error', "Session: Driver '".$this->_driver."' doesn't implement SessionHandlerInterface. Aborting.");
 			return;
-		}
+		}*/
 
 		// Sanitize the cookie, because apparently PHP doesn't do that for userspace handlers
 		if (isset($_COOKIE[$this->_config['cookie_name']])
@@ -137,7 +137,7 @@ class CI_Session {
 			unset($_COOKIE[$this->_config['cookie_name']]);
 		}
 
-		session_start();
+		//session_start();
 
 		// Is session ID auto-regeneration configured? (ignoring ajax requests)
 		if ((empty($_SERVER['HTTP_X_REQUESTED_WITH']) OR strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) !== 'xmlhttprequest')
@@ -259,6 +259,7 @@ class CI_Session {
 	 */
 	protected function _configure(&$params)
 	{
+	    return true;
 		$expiration = config_item('sess_expiration');
 
 		if (isset($params['cookie_lifetime']))
@@ -285,13 +286,13 @@ class CI_Session {
 		isset($params['cookie_domain']) OR $params['cookie_domain'] = config_item('cookie_domain');
 		isset($params['cookie_secure']) OR $params['cookie_secure'] = (bool) config_item('cookie_secure');
 
-		session_set_cookie_params(
+		/*session_set_cookie_params(
 			$params['cookie_lifetime'],
 			$params['cookie_path'],
 			$params['cookie_domain'],
 			$params['cookie_secure'],
 			TRUE // HttpOnly; Yes, this is intentional and not configurable for security reasons
-		);
+		);*/
 
 		if (empty($expiration))
 		{
@@ -310,12 +311,12 @@ class CI_Session {
 		$this->_config = $params;
 
 		// Security is king
-		ini_set('session.use_trans_sid', 0);
+		/*ini_set('session.use_trans_sid', 0);
 		ini_set('session.use_strict_mode', 1);
 		ini_set('session.use_cookies', 1);
 		ini_set('session.use_only_cookies', 1);
 		ini_set('session.hash_function', 1);
-		ini_set('session.hash_bits_per_character', 4);
+		ini_set('session.hash_bits_per_character', 4);*/
 	}
 
 	// ------------------------------------------------------------------------
