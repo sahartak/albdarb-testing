@@ -1,6 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * @property CI_DB $db
+ */
 class Test_passing_model extends CI_Model {
 
 	public function get_passing_rules($no_pass) {
@@ -60,11 +63,13 @@ class Test_passing_model extends CI_Model {
 		$questions = array();
 		for($i=1; $i<=5; $i++) {
 			if($test_info['diff_'.$i.'_total']) {
-				$query = $this->db ->select('id, question, answer_mode')
-								   ->where(array('test_id' => $test_info['id'], 'difficulty' => $i))
-								   ->order_by('id', 'RANDOM')
-								   ->limit($test_info['diff_'.$i.'_total'])
-								   ->get('questions');
+				$query = $this->db->select('questions.id, questions.question, questions.answer_mode')
+                    ->join('categories', 'categories.id=questions.category', 'left')
+                    ->where('categories.is_selected=1')
+                    ->where(array('questions.test_id' => $test_info['id'], 'difficulty' => $i))
+                    ->order_by('questions.id', 'RANDOM')
+                    ->limit($test_info['diff_'.$i.'_total'])
+                    ->get('questions');
 				if($query->num_rows()) {
 					$insert = array();
 					$result = $query->result_array();

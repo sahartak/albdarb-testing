@@ -1,4 +1,8 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+$questions_total = [
+    1 => 0, 2 => 0, 3=>0, 4=>0, 5=>0
+];
+?>
 
 <div class="container-fluid"><br />
     <div class="col-md-12">
@@ -28,12 +32,54 @@
                         </div>
                     </div>
                 <?php endforeach;?>
+
             <?php else:?>
                 <p>Այս թեստի համար դուք չունեք հարցեր: <a href="<?=site_url('admin/add_question/'.$test['id'])?>">Ավելացնել հարց</a></p>
             <?php endif;?>
             </form>
         </div><br />
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Թեմա</th>
+                <th>Հասանելի շատ պարզ հարցեր</th>
+                <th>պարզ հարցեր</th>
+                <th>նորմալ հարցեր</th>
+                <th>բարդ հարցեր</th>
+                <th>շատ բարդ հարցեր</th>
+            </tr>
 
+            </thead>
+            <tbody>
+            <?php foreach ($test['categories'] as $category):?>
+            <tr>
+                <td>
+                    <label>
+                        <input class="category_checkbox" type="checkbox" value="<?=$category['id']?>" <?=$category['is_selected'] ? 'checked' : ''?>>
+                        <?=$category['name']?>
+                    </label>
+                </td>
+                <?php foreach ($category['questions_counts'] as $key => $questions_count):?>
+                    <?php $questions_total[$key] += ($category['is_selected'] ? $questions_count : 0)?>
+                    <td class="td_difficult_<?=$key?>"><?=$questions_count?></td>
+                <?php endforeach;?>
+            </tr>
+
+            <?php endforeach?>
+            <tr>
+                <th>Գումարային հասանելի հարցեր</th>
+                <?php foreach ($questions_total as $key => $count):?>
+                    <th class="th_difficult_<?=$key?>"><?=$count?></th>
+                <?php endforeach;?>
+            </tr>
+            </tbody>
+        </table>
+        <ul style="list-style: none">
+
+        </ul>
+
+    </div>
         <div class="row table-responsive">
             <table class="table-bordered table-condensed table-striped table-hover" width="100%">
                 <tr>
@@ -77,7 +123,7 @@
                     <th>Հարցը</th>
                     <th>Ճիշտ պատասխաններ<br />նշելու քանակը</th>
                     <!--<th>Ստեղծման ամսաթիվ</th>-->
-                    <!--<th>Թեման</th>-->
+                    <th>Թեման</th>
                     <th>Բարդությունը</th>
                     <th>Պատասխաններ<br />(Կանաչ գույնով նշված է ճիշտ պատասխանը)</th>
                     <th>Գործողություններ</th>
@@ -91,7 +137,7 @@
                         <td><?=$question['question']?></td>
                         <td><?=$question['answer_mode'] ? '1 ից ավելի պատասխաններ' : '1 պատասխան'?></td>
                         <!--<td><?/*=date('d.m.Y',strtotime($question['created']))*/?></td>-->
-                        <!--<td><?/*=$question['category_name']*/?></td>-->
+                        <td><?=$question['category_name']?></td>
                         <td><?=$question['difficulty_name']?></td>
                         <td>
                             <ul>

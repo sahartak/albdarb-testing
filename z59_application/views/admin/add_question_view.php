@@ -32,7 +32,6 @@
 			<div class="col-sm-12"><label for="category">Հարցը որ թեմային է վերաբերվում</label></div>
 			<div class="col-sm-12">
 				<select class="form-control" name="category" id="category">
-					<option value="0">Առանց թեմայի</option>
 				<?php if($categories) foreach($categories as $cat): ?>
 					<option value="<?=$cat['id']?>"><?=$cat['name']?></option>
 				<?php endforeach;?>

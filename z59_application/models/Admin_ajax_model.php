@@ -23,5 +23,10 @@ class Admin_ajax_model extends CI_Model {
 	public function update_test_field($test_id, $field, $total) {
 		$test_id = abs((int)$test_id);
 		$this->db->update('tests', array($field => $total), array('id' => $test_id));
-	}           
+	}
+
+    public function update_category_selection($id, $selected)
+    {
+        $this->db->update('categories', ['is_selected' => $selected], ['id' => $id]);
+    }
 }
