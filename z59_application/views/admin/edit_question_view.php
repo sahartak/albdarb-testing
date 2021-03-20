@@ -1,8 +1,21 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="container">
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin">Գլխավոր</a></li>
+                    <li class="breadcrumb-item"><a href="<?=site_url('admin/view_test/' . $question['test_id'])?>">Թեստ <?=$question['test_id']?></a></li>
+                    <li class="breadcrumb-item active"><a href="<?=site_url('admin/edit_question/' . $question['id'])?>">Հարց <?=$question['id']?></a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
 	<div class="row"><h1 class="page_title">Խմբագրել Հարցը</h1><br /></div>
-<?php 
+<?php
 	echo validation_errors();
 	echo form_open('',array('id' => 'question_form'));
 ?>
