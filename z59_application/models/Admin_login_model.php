@@ -6,6 +6,7 @@ class Admin_login_model extends CI_Model {
 		$salt = 'z59_salt';
 		$salt = md5($salt.$password).sha1($salt.$password);
 		$password = password_hash($password, PASSWORD_BCRYPT, array('salt' => $salt));
+            
 		return $password;
 	}
 
