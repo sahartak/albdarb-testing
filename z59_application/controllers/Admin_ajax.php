@@ -27,6 +27,14 @@ class Admin_ajax extends CI_Controller {
 		echo json_encode($result);
 	}
 
+    public function category_select()
+    {
+        $id = $this->input->post('id');
+        $is_selected = $this->input->post('checked');
+        $this->admin_ajax_model->update_category_selection($id, $is_selected ? 1 : 0);
+        echo $this->security->get_csrf_hash();
+    }
+
 	public function update_question_total(){
 		$this->admin_ajax_model->update_test_field($this->input->post('test_id'), $this->input->post('field', TRUE), $this->input->post('total'));
 		echo $this->security->get_csrf_hash();

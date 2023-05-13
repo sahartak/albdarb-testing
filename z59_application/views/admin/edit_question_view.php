@@ -1,8 +1,24 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="container">
-	<div class="row"><h1 class="page_title">Խմբագրել Հարցը</h1><br /></div>
-<?php 
+
+
+
+	<div class="row"><h1 class="page_title">Խմբագրել Հարցը</h1></div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/admin">Գլխավոր</a></li>
+                    <li class="breadcrumb-item"><a href="<?=site_url('admin/view_test/' . $question['test_id'])?>">Թեստ <?=$question['test_id']?></a></li>
+                    <li class="breadcrumb-item active"><a href="<?=site_url('admin/edit_question/' . $question['id'])?>">Հարց <?=$question['id']?></a></li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+<?php
 	echo validation_errors();
 	echo form_open('',array('id' => 'question_form'));
 ?>
@@ -28,7 +44,6 @@
 			<div class="col-sm-12"><label for="category">Հարցը որ թեմային է վերաբերվում</label></div>
 			<div class="col-sm-12">
 				<select class="form-control" name="category" id="category">
-					<option value="0">Առանց թեմայի</option>
 				<?php if($categories) foreach($categories as $cat): ?>
 					<option value="<?=$cat['id']?>" <?php if($question['category'] == $cat['id']) echo 'selected';?> ><?=$cat['name']?></option>
 				<?php endforeach;?>

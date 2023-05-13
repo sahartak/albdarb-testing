@@ -189,6 +189,35 @@ $(document).ready(function() {
 		change_max_point();
 	});
 
+	function recalculateAvailableQuestions() {
+		for (let i=1; i<=5; i++) {
+			let td_class = '.td_difficult_' + i;
+			let total = 0;
+			$(td_class).each(function () {
+				if ($(this).closest('tr').find('.category_checkbox').prop('checked')) {
+					total += parseInt($(this).text().trim());
+				}
+			})
+			$('.th_difficult_' + i).text(total);
+		}
+	}
+
+	$('.category_checkbox').click(function () {
+		const checked = $(this).prop('checked') ? 1 : 0;
+		const id = $(this).val();
+		const csrf_albdarb_testing_name = $('#token_hash').val();
+		recalculateAvailableQuestions();
+		$.ajax({
+			type: 'POST',
+			url: '/admin_ajax/category_select',
+			data: {id, checked, csrf_albdarb_testing_name},
+			success: function(data) {
+				$('#token_hash').val(data);
+
+			}
+		});
+	});
+
 	$('#is_open').change(function() {
 		var status = $(this).val();
 		if(status == 1) {
