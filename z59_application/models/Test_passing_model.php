@@ -247,6 +247,9 @@ class Test_passing_model extends CI_Model {
 				$end_point += $current_point;
 			}
 			$end_point = (float)$end_point;
+			if ($end_point < 0) {
+			    $end_point = 0;
+            }
 			$max_point = $point * count($questions);
 			$this->db->where('id', $end_test_id)->update('get_test', array('point' => $end_point, 'max_point' => $max_point));
 			$result = array('questions' => $questions, 'end_point' => $end_point, 'max_point' => $max_point);

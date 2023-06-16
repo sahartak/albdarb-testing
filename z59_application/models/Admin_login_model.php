@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Admin_login_model extends CI_Model {
     
 	private function get_secure_pass($password) {
+	    error_reporting(0);
 		$salt = 'z59_salt';
 		$salt = md5($salt.$password).sha1($salt.$password);
 		$password = password_hash($password, PASSWORD_BCRYPT, array('salt' => $salt));

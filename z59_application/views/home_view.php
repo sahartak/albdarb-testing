@@ -1,7 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
 
 <div class="container">
-	<div class="row"><h1>Թեստեր</h1></div>
+	<div class="row">
+        <h1>HighCode Certifications</h1>
+        <a style="text-align: center;" href="http://albdarb.com/" target="_blank">
+            <h3>Դասավանդում</h3>
+        </a>
+
+        <h2>Թեստեր</h2>
+    </div>
 	<div class="row">
 		<?php if($tests) foreach($tests as $test):?>
 			<div class="col-sm-6 col-md-4 test_blok">
@@ -16,5 +23,5 @@
 				</div>
 			</div>
 		<?php endforeach;?>
-	</div>  
+	</div>
 </div>
